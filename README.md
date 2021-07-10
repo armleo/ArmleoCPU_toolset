@@ -1,2 +1,9 @@
 ## ArmleoCPU_toolset
-Prebuilt packages for Docker with predefined Yosys, Verilator, Icarus Verilog and RISCV GNU Toolchain used to do basic verification of ArmleoCPU.
+Toolset for ArmleoCPU. Uses docker.
+Note: always uses latest riscv gnu toolchain.
+Note: To update to latest riscv gnu toolchain do: make rebuild
+
+Do this
+```
+make # Create armleocpu_toolset:current build
+```
