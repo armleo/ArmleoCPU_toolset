@@ -9,8 +9,6 @@ RUN apt-get install -y git
 
 WORKDIR /opt
 RUN git clone https://github.com/riscv/riscv-gnu-toolchain
-RUN ls
-RUN pwd
 RUN mkdir /opt/riscv
 ENV PATH=$PATH:/opt/riscv/bin
 WORKDIR riscv-gnu-toolchain
