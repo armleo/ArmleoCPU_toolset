@@ -1,4 +1,5 @@
-
+push: main
+	docker image push
 
 main:
 	docker build -t armleocpu_toolset:current .
