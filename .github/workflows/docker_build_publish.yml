@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'main'
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build-and-push-image:
@@ -26,4 +28,5 @@ jobs:
           context: .
           push: true
           tags: |
+            armleo/armleocpu_toolset:latest-${{env.GITHUB_SHA}}-$(date +%Y%m%d%H%M%S)
             armleo/armleocpu_toolset:latest
