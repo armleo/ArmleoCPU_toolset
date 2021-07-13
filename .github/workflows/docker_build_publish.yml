@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-
+    timeout-minutes: 720
     steps:
       - name: Get current date
         id: get_date
