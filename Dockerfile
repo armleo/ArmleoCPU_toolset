@@ -7,6 +7,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/Moscow
 RUN apt-get update -y
 
+# Toolset
+RUN apt-get install -y iverilog verilator make grep gcc gtkwave
+
 # Install deps for riscv toolchain
 RUN apt-get install -y make git autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
 
@@ -23,12 +26,11 @@ RUN make linux
 # Yosys deps
 RUN apt-get install -y build-essential clang bison flex libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
 
+
 WORKDIR /opt
 RUN git clone https://github.com/YosysHQ/yosys.git
 WORKDIR /opt/yosys
 RUN make
 RUN make test
 RUN make install
-
-RUN apt-get install -y iverilog verilator make grep gcc gtkwave
 
