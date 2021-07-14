@@ -24,7 +24,7 @@ RUN make linux
 
 
 # Yosys deps
-RUN apt-get install -y build-essential clang bison flex libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
+RUN apt-get install -y build-essential clang bison flex gawk libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
 
 
 WORKDIR /opt
