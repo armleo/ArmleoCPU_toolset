@@ -26,8 +26,7 @@ WORKDIR /opt/
 # Install SymbiYosys
 RUN git clone https://github.com/YosysHQ/SymbiYosys.git && cd SymbiYosys && make install && cd ..
 
-RUN git clone --branch yices-2.5.1 https://github.com/SRI-CSL/yices2.git
-RUN cd yices2 && autoconf && ./configure && make -j$(nproc) && make install && cd ..
+RUN git clone --branch yices-2.6.2 https://github.com/SRI-CSL/yices2.git && cd yices2 && autoconf && ./configure && make -j$(nproc) && make install && cd ..
 
 # Build RISC-V GNU Toolchain
 WORKDIR /opt/
