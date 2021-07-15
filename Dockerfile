@@ -33,4 +33,10 @@ RUN make
 RUN make test
 RUN make install
 
+# Linux deps
 RUN apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
+
+# Qemu deps
+RUN apt-get install libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev python3 ninja-build
+
+
