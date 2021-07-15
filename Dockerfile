@@ -3,8 +3,7 @@ FROM ubuntu:21.04
 
 # To force automatic decisions for apt-get
 ENV DEBIAN_FRONTEND=noninteractive
-# For TZDATA package
-ENV TZ=Europe/Moscow
+
 RUN apt-get update -y
 
 # Toolset
