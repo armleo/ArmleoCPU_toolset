@@ -12,6 +12,23 @@ RUN apt-get install -y iverilog verilator make grep gcc gtkwave
 # Install deps for riscv toolchain
 RUN apt-get install -y make git autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
 
+
+# Linux deps
+RUN apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
+
+# Qemu deps
+RUN apt-get install -y libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev python3 ninja-build
+
+# SymbiYosys (Z3 from packages)
+RUN apt-get install -y z3 build-essential clang bison flex libreadline-dev gawk tcl-dev libffi-dev git mercurial graphviz xdot pkg-config python python3 libftdi-dev gperf libboost-program-options-dev autoconf libgmp-dev cmake
+
+WORKDIR /opt/
+# Install SymbiYosys
+RUN git clone https://github.com/YosysHQ/SymbiYosys.git && cd SymbiYosys && make install && cd ..
+
+RUN git clone --branch yices-2.5.1 https://github.com/SRI-CSL/yices2.git
+RUN cd yices2 && autoconf && ./configure && make -j$(nproc) && make install && cd ..
+
 # Build RISC-V GNU Toolchain
 WORKDIR /opt/
 ENV PATH=$PATH:/opt/riscv/bin
@@ -32,11 +49,4 @@ WORKDIR /opt/yosys
 RUN make
 RUN make test
 RUN make install
-
-# Linux deps
-RUN apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
-
-# Qemu deps
-RUN apt-get install -y libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev python3 ninja-build
-
 
