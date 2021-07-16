@@ -7,7 +7,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 
 # Toolset
-RUN apt-get install -y iverilog verilator make grep gcc gtkwave
+RUN apt-get install -y iverilog verilator make grep gcc clang cloc gtkwave
+# GCC: For Verilator
+# CLANG: For CXXRTL
+# CLOC: Line of code
 
 # Install deps for riscv toolchain
 RUN apt-get install -y make git autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
