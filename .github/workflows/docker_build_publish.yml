@@ -33,5 +33,5 @@ jobs:
           context: .
           push: true
           tags: |
-            armleo/armleocpu_toolset:latest-${{ steps.get_date.outputs.date }}
+            armleo/armleocpu_toolset:v1
             armleo/armleocpu_toolset:latest
