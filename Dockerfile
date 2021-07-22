@@ -13,7 +13,15 @@ RUN apt-get install -y iverilog make grep gcc clang cloc gtkwave
 # CLOC: Line of code
 
 # Verilator build tools
-RUN apt-get install -y git perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlibc zlib1g zlib1g-dev
+RUN apt-get install -y git perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlib1g zlib1g-dev
+
+# Verilator
+WORKDIR /opt
+RUN git clone --branch stable --depth 1 https://github.com/verilator/verilator
+WORKDIR /opt/verilator
+RUN autoconf && ./configure
+RUN make -j && make install
+
 
 
 
@@ -56,12 +64,4 @@ WORKDIR /opt/yosys
 RUN make
 RUN make test
 RUN make install
-
-
-# Verilator
-WORKDIR /opt
-RUN git clone --branch stable --depth 1 https://github.com/verilator/verilator
-WORKDIR /opt/verilator
-RUN autoconf && ./configure
-RUN make -j && make install
 
