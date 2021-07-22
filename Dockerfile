@@ -7,20 +7,20 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 
 # Toolset
-RUN apt-get install -y iverilog make grep gcc clang cloc gtkwave
+RUN apt-get install -y iverilog make grep gcc clang cloc verilator gtkwave
 # GCC: For Verilator
 # CLANG: For CXXRTL
 # CLOC: Line of code
 
 # Verilator build tools
-RUN apt-get install -y git perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlib1g zlib1g-dev
+# RUN apt-get install -y git perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlib1g zlib1g-dev
 
 # Verilator
-WORKDIR /opt
-RUN git clone --branch stable --depth 1 https://github.com/verilator/verilator
-WORKDIR /opt/verilator
-RUN autoconf && ./configure
-RUN make -j && make install
+# WORKDIR /opt
+# RUN git clone --branch stable --depth 1 https://github.com/verilator/verilator
+# WORKDIR /opt/verilator
+# RUN autoconf && ./configure
+# RUN make -j && make install
 
 
 
