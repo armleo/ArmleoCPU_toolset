@@ -7,10 +7,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 
 # Toolset
-RUN apt-get install -y iverilog verilator make grep gcc clang cloc gtkwave
+RUN apt-get install -y iverilog make grep gcc clang cloc gtkwave
 # GCC: For Verilator
 # CLANG: For CXXRTL
 # CLOC: Line of code
+
+# Verilator build tools
+RUN apt-get install -y git perl python3 make autoconf g++ flex bison ccache libgoogle-perftools-dev numactl perl-doc libfl2 libfl-dev zlibc zlib1g zlib1g-dev
+
+
 
 # Install deps for riscv toolchain
 RUN apt-get install -y make git autoconf automake autotools-dev curl python3 libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
@@ -51,4 +56,12 @@ WORKDIR /opt/yosys
 RUN make
 RUN make test
 RUN make install
+
+
+# Verilator
+WORKDIR /opt
+RUN git clone --branch stable --depth 1 https://github.com/verilator/verilator
+WORKDIR /opt/verilator
+RUN autoconf && ./configure
+RUN make -j && make install
 
