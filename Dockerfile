@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y
 
 # Toolset
-RUN apt-get install -y iverilog make grep gcc clang cloc verilator gtkwave
+RUN apt-get install -y iverilog make grep gcc clang cloc verilator gdb gtkwave
 # GCC: For Verilator
 # CLANG: For CXXRTL
 # CLOC: Line of code
