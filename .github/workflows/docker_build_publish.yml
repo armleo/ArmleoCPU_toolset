@@ -31,5 +31,5 @@ jobs:
           context: .
           push: true
           tags: |
-            armleo/armleocpu_toolset:v2
+            armleo/armleocpu_toolset:v3
             armleo/armleocpu_toolset:latest
