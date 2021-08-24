@@ -35,14 +35,21 @@ RUN apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-
 # Qemu deps
 RUN apt-get install -y libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev python3 ninja-build
 
+RUN apt-get install -y qemu-system-misc qemu
+
 # SymbiYosys (Z3 from packages)
 RUN apt-get install -y z3 build-essential clang bison flex libreadline-dev gawk tcl-dev libffi-dev git mercurial graphviz xdot pkg-config python python3 libftdi-dev gperf libboost-program-options-dev autoconf libgmp-dev cmake
 
 WORKDIR /opt/
 # Install SymbiYosys
 RUN git clone https://github.com/YosysHQ/SymbiYosys.git && cd SymbiYosys && make install && cd ..
+WORKDIR /opt/
+RUN rm -rf /opt/SymbiYosys
 
 RUN git clone --branch Yices-2.6.2 https://github.com/SRI-CSL/yices2.git && cd yices2 && autoconf && ./configure && make -j$(nproc) && make install && cd ..
+
+WORKDIR /opt/
+RUN rm -rf /opt/yices2
 
 # Build RISC-V GNU Toolchain
 WORKDIR /opt/
@@ -52,6 +59,8 @@ WORKDIR riscv-gnu-toolchain
 RUN ./configure --prefix=/opt/riscv --with-arch=rv32ima --with-abi=ilp32
 RUN make
 RUN make linux
+WORKDIR /opt
+RUN rm -rf /opt/riscv-gnu-toolchain
 
 
 # Yosys deps
@@ -64,4 +73,6 @@ WORKDIR /opt/yosys
 RUN make
 RUN make test
 RUN make install
+WORKDIR /opt
+RUN rm -rf /opt/yosys
 
