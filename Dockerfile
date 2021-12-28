@@ -42,25 +42,15 @@ RUN apt-get install -y z3 build-essential clang bison flex libreadline-dev gawk 
 
 WORKDIR /opt/
 # Install SymbiYosys
-RUN git clone https://github.com/YosysHQ/SymbiYosys.git && cd SymbiYosys && make install && cd ..
-WORKDIR /opt/
-RUN rm -rf /opt/SymbiYosys
+ADD build_symbiyosys.bash /opt/build_symbiyosys.bash
+RUN bash build_symbiyosys.bash
 
-RUN git clone --branch Yices-2.6.2 https://github.com/SRI-CSL/yices2.git && cd yices2 && autoconf && ./configure && make -j$(nproc) && make install && cd ..
-
-WORKDIR /opt/
-RUN rm -rf /opt/yices2
 
 # Build RISC-V GNU Toolchain
 WORKDIR /opt/
 ENV PATH=$PATH:/opt/riscv/bin
-RUN git clone https://github.com/riscv/riscv-gnu-toolchain && mkdir /opt/riscv
-WORKDIR riscv-gnu-toolchain
-RUN ./configure --prefix=/opt/riscv --with-arch=rv32ima --with-abi=ilp32
-RUN make
-RUN make linux
-WORKDIR /opt
-RUN rm -rf /opt/riscv-gnu-toolchain
+ADD build_riscv_toolchain.bash /opt/build_riscv_toolchain.bash
+RUN bash /opt/build_riscv_toolchain.bash
 
 
 # Yosys deps
@@ -68,11 +58,6 @@ RUN apt-get install -y build-essential clang bison flex gawk libreadline-dev gaw
 
 
 WORKDIR /opt
-RUN git clone https://github.com/YosysHQ/yosys.git
-WORKDIR /opt/yosys
-RUN make
-RUN make test
-RUN make install
-WORKDIR /opt
-RUN rm -rf /opt/yosys
+ADD build_yosys.bash /opt/build_yosys.bash
+RUN bash /opt/build_yosys.bash
 
