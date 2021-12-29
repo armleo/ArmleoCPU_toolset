@@ -5,4 +5,4 @@ make
 make test
 make install
 cd /opt
-cd rm -rf /opt/yosys
+rm -rf /opt/yosys

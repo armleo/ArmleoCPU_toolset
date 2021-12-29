@@ -46,18 +46,18 @@ ADD build_symbiyosys.bash /opt/build_symbiyosys.bash
 RUN bash build_symbiyosys.bash
 
 
+# Yosys deps
+RUN apt-get install -y build-essential clang bison flex gawk libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
+
+WORKDIR /opt
+ADD build_yosys.bash /opt/build_yosys.bash
+RUN bash /opt/build_yosys.bash
+
+
+
 # Build RISC-V GNU Toolchain
 WORKDIR /opt/
 ENV PATH=$PATH:/opt/riscv/bin
 ADD build_riscv_toolchain.bash /opt/build_riscv_toolchain.bash
 RUN bash /opt/build_riscv_toolchain.bash
-
-
-# Yosys deps
-RUN apt-get install -y build-essential clang bison flex gawk libreadline-dev gawk tcl-dev libffi-dev git graphviz xdot pkg-config python3 libboost-system-dev libboost-python-dev libboost-filesystem-dev zlib1g-dev
-
-
-WORKDIR /opt
-ADD build_yosys.bash /opt/build_yosys.bash
-RUN bash /opt/build_yosys.bash
 
